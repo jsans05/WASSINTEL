@@ -7,6 +7,9 @@ from streamlit_cookies_manager import EncryptedCookieManager
 from datetime import datetime, timezone
 from pillow_avif import AvifImagePlugin
 import base64
+from pathlib import Path
+
+ASSETS = Path(__file__).parent
 
 def _basic_auth_header(username: str, password: str) -> dict:
     token = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
@@ -317,7 +320,10 @@ if "memory" not in st.session_state:
         st.session_state.memory = {}
 
 # ----------------- App shell -----------------
-st.logo("MysteryMachineIcon.png", size="large")
+ICON = ASSETS / "MysteryMachineIcon.png"
+st.logo(str(ICON), size="large")
+# (Optional) also set the page icon consistently:
+st.set_page_config(page_title="Mystery Machine", page_icon=str(ICON), layout="wide")
 st.title("Mystery Machine")
 st.caption("Prospect sponsors, generate insights, and ask about the database.")
 
@@ -394,7 +400,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.image("MysteryMachine.png", caption="Gunner's Little Art Project", use_container_width=True)
+st.image(ASSETS / "MysteryMachine.png", caption="Gunner's Little Art Project", use_container_width=True)
 
 # ----------------- Poll helpers -----------------
 def poll_status_webhook(job_id: str, max_wait_s: int = 90000):
