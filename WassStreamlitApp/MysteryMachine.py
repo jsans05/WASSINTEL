@@ -506,9 +506,9 @@ if user_input := st.chat_input("The Mystery Machine Awaits"):
                     new_mem = merge_memory_text(base, delta, mode="append")
                     set_user_memory(USER, new_mem)
                     st.session_state.memory = new_mem
-                    
+
         rendered = json.dumps(result, indent=2) if isinstance(result, dict) else (result or "No result.")
-        st.chat_message("assistant", avatar="MysteryMachineIcon.png").markdown(rendered)
+        st.chat_message("assistant", avatar= ASSETS / "MysteryMachineIcon.png").markdown(rendered)
         st.session_state.messages.append({"role": "assistant", "content": rendered})
         append_message(conv_id, "assistant", rendered)
 
