@@ -467,7 +467,7 @@ if user_input := st.chat_input("The Mystery Machine Awaits"):
     conv_id = st.session_state.active_conv_id
 
     # Echo + persist user msg
-    st.chat_message("user", avatar=ASSETS / "wasserman_icon_black.png").markdown(user_input)
+    st.chat_message("user", avatar=ASSETS / "wbi.png").markdown(user_input)
     st.session_state.messages.append({"role": "user", "content": user_input})
     append_message(conv_id, "user", user_input)
 
