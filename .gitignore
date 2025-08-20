@@ -1,5 +1,6 @@
-# Secrets
+# Secrets & configs
 WassStreamlitApp/.streamlit/secrets.toml
+.streamlit/secrets.toml
 .env
 .env.*
 *.pem
@@ -12,7 +13,7 @@ __pycache__/
 .venv*/
 .pytest_cache/
 
-# OS/editor
+# OS / Editor
 .DS_Store
 .vscode/
 .idea/
