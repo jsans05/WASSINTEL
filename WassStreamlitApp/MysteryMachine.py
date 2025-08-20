@@ -495,17 +495,18 @@ if user_input := st.chat_input("The Mystery Machine Awaits"):
             else:
                 result = "Processing in the background."
 
-            if isinstance(result, dict) and "memory_update" in result:
-                base = st.session_state.get("memory", "")
-                new_mem = merge_memory_text(base, result["memory_update_text"], mode="append")
-                set_user_memory(USER, new_mem)
-                st.session_state.memory = new_mem
-            elif isinstance(result, dict) and isinstance(result.get("memory_update"), dict):
-                base = st.session_state.get("memory", "")
-                delta = json.dumps(result["memory_update"], indent=2)
-                new_mem = merge_memory_text(base, delta, mode="append")
-                set_user_memory(USER, new_mem)
-                st.session_state.memory = new_mem
+                if isinstance(result, dict) and "memory_update" in result:
+                    base = st.session_state.get("memory", "")
+                    new_mem = merge_memory_text(base, result["memory_update_text"], mode="append")
+                    set_user_memory(USER, new_mem)
+                    st.session_state.memory = new_mem
+                elif isinstance(result, dict) and isinstance(result.get("memory_update"), dict):
+                    base = st.session_state.get("memory", "")
+                    delta = json.dumps(result["memory_update"], indent=2)
+                    new_mem = merge_memory_text(base, delta, mode="append")
+                    set_user_memory(USER, new_mem)
+                    st.session_state.memory = new_mem
+                    
         rendered = json.dumps(result, indent=2) if isinstance(result, dict) else (result or "No result.")
         st.chat_message("assistant", avatar="MysteryMachineIcon.png").markdown(rendered)
         st.session_state.messages.append({"role": "assistant", "content": rendered})
